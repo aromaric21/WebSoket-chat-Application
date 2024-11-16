@@ -46,7 +46,6 @@
 <script>
     var stompClient = null;
     var username = null;
-
     function connect(event) {
         username = $("#name").val().trim();
 
@@ -63,7 +62,7 @@
         stompClient.subscribe('/topic/public', onMessageReceived);
 
         // Tell your username to the server
-        stompClient.send("/app/chat.addUser",
+        stompClient.send("/app/chat.adduser",
             {},
             JSON.stringify({userName: username, messageType: 'JOIN'})
         )
@@ -89,7 +88,6 @@
         }
         event.preventDefault();
     }
-
     function onMessageReceived(payload) {
         var message = JSON.parse(payload.body);
         var messageElement = $('<div>');

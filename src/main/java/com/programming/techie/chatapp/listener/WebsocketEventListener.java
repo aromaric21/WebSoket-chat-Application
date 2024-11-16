@@ -25,7 +25,7 @@ public class WebsocketEventListener {
         if (username != null){
             ChatMessage chatMessage = new ChatMessage();
             chatMessage.setMessageType(MessageType.LEAVE);
-            chatMessage.setUsername(username);
+            chatMessage.getUserName();
             chatMessage.setMessage(username + "left the chat");
             log.info("User disconnected: {}", username);
             redisTemplate.convertAndSend("chat", chatMessage);

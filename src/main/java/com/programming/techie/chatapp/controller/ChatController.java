@@ -30,14 +30,14 @@ public class ChatController {
     }
 
     // Add User to the application
-    @MessageMapping("/chat.addUser")
+    @MessageMapping("/chat.adduser")
     public ChatMessage adduser(@Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor){
         // Get user name from the chatMessage object and add it to the Websocket Session
-        headerAccessor.getSessionAttributes().put("username", chatMessage.getUsername());
+        headerAccessor.getSessionAttributes().put("username", chatMessage.getUserName());
         chatMessage.setMessageType(MessageType.JOIN);
-        chatMessage.setMessage(chatMessage.getUsername()+ "joined the chat");
+        chatMessage.setMessage(chatMessage.getUserName() + " joined the chat");
         chatMessage.setTimestamp(LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
-        log.info("User joined:{}", chatMessage.getUsername());
+        log.info("User joined:{}", chatMessage.getUserName());
         // Send the chat message back to the clients with Message as JOIN
         redisTemplate.convertAndSend("chat", chatMessage);
         return chatMessage;
